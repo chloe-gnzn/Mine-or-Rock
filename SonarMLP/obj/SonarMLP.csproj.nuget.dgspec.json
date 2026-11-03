@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/SonarMLP.csproj": {}
+    "C:\\Users\\Iren Guinita\\Documents\\GitHub\\Mine-or-Rock\\SonarMLP\\SonarMLP.csproj": {}
   },
   "projects": {
-    "/Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/SonarMLP.csproj": {
+    "C:\\Users\\Iren Guinita\\Documents\\GitHub\\Mine-or-Rock\\SonarMLP\\SonarMLP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/SonarMLP.csproj",
+        "projectUniqueName": "C:\\Users\\Iren Guinita\\Documents\\GitHub\\Mine-or-Rock\\SonarMLP\\SonarMLP.csproj",
         "projectName": "SonarMLP",
-        "projectPath": "/Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/SonarMLP.csproj",
-        "packagesPath": "/Users/chloejuliageonzon/.nuget/packages/",
-        "outputPath": "/Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/obj/",
+        "projectPath": "C:\\Users\\Iren Guinita\\Documents\\GitHub\\Mine-or-Rock\\SonarMLP\\SonarMLP.csproj",
+        "packagesPath": "C:\\Users\\Iren Guinita\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Iren Guinita\\Documents\\GitHub\\Mine-or-Rock\\SonarMLP\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/chloejuliageonzon/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Iren Guinita\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -61,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.403/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
