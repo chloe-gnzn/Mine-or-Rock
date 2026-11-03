@@ -77,6 +77,22 @@ namespace SonarMLP
 
             Evaluator.Print("TRAIN", Evaluator.Evaluate(network, trainScaled));
             Evaluator.Print("TEST", Evaluator.Evaluate(network, testScaled));
+
+            // ---------- HYPERPARAMETER SWEEP ----------
+            Console.WriteLine("\n[4/4] Hyperparameter sweep ...");
+
+            // Split the TRAINING data again: ~133 rows to train on, ~34 to validate on.
+            var (fitSet, valSet) = DataSplitter.StratifiedSplit(trainScaled, testRatio: 0.2, seed: 7);
+
+            var sweepResults = HyperparameterSweep.Run(
+                fitSet, valSet,
+                learningRates: new[] { 0.01, 0.05, 0.15, 0.3 },
+                hiddenSizes: new[] { 8, 16, 24, 48 },
+                checkpoints: new[] { 100, 300, 500, 1000 },
+                seeds: new[] { 1, 2, 3 });
+
+            HyperparameterSweep.WriteCsv(sweepResults, "hyperparameter_results.csv");
+            HyperparameterSweep.PrintTop(sweepResults, 5);
         }
     }
 }
