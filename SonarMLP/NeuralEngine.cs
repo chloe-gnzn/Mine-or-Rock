@@ -86,5 +86,49 @@ namespace SonarMLP
                 BiasesO[o] = 0.0;
             }
         }
+
+        //sigmoid activation 
+        private static double Sigmoid(double x)
+        {
+            if (x < -45.0) return 0.0;
+            if (x > 45.0) return 1.0;
+            return 1.0 / (1.0 + Math.Exp(-x));
+        }
+
+        //f'(y) = y * (1 - y)
+        private static double SigmoidDerivative(double output){
+            output * (1.0 - output);
+        }
+
+        //compute the forward pass across input -> hidden -> output layers
+        public double[] ComputeForward(double[] inputs, out double[] hiddenActivations)
+        {
+            hiddenActivations = new double[HiddenDim];
+            double[] outputs = new double[OutputDim];
+
+            //input layer to hidden layer
+            for (int h = 0; h < HiddenDim; h++)
+            {
+                double sum = BiasesH[h];
+                for (int i = 0; i < InputDim; i++)
+                {
+                    sum += inputs[i] * WeightsIH[i, h];
+                }
+                hiddenActivations[h] = Sigmoid(sum);
+            }
+
+            //hidden layer to output layer
+            for (int o = 0; o < OutputDim; o++)
+            {
+                double sum = BiasesO[o];
+                for (int h = 0; h < HiddenDim; h++)
+                {
+                    sum += hiddenActivations[h] * WeightsHO[h, o];
+                }
+                outputs[o] = Sigmoid(sum);
+            }
+
+            return outputs;
+        }
     }
 }
