@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SonarMLP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f7b6aa6b548dfa5d828a6169f210e1345d41593e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5ac13b9adc62a08f32fbce4e7e81338b4d910151")]
 [assembly: System.Reflection.AssemblyProductAttribute("SonarMLP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SonarMLP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
