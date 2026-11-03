@@ -79,20 +79,39 @@ namespace SonarMLP
             Evaluator.Print("TEST", Evaluator.Evaluate(network, testScaled));
 
             // ---------- HYPERPARAMETER SWEEP ----------
-            Console.WriteLine("\n[4/4] Hyperparameter sweep ...");
+            // Set to true only to regenerate hyperparameter_results.csv
+            bool runSweep = false;
 
-            // Split the TRAINING data again: ~133 rows to train on, ~34 to validate on.
-            var (fitSet, valSet) = DataSplitter.StratifiedSplit(trainScaled, testRatio: 0.2, seed: 7);
+            if (runSweep)
+            {
+                Console.WriteLine("\n[4/5] Hyperparameter sweep (tuning on a validation split, not the test set)...");
 
-            var sweepResults = HyperparameterSweep.Run(
-                fitSet, valSet,
-                learningRates: new[] { 0.01, 0.05, 0.15, 0.3 },
-                hiddenSizes: new[] { 8, 16, 24, 48 },
-                checkpoints: new[] { 100, 300, 500, 1000 },
-                seeds: new[] { 1, 2, 3 });
+                var (fitSet, valSet) = DataSplitter.StratifiedSplit(trainScaled, testRatio: 0.2, seed: 7);
 
-            HyperparameterSweep.WriteCsv(sweepResults, "hyperparameter_results.csv");
-            HyperparameterSweep.PrintTop(sweepResults, 5);
+                var sweepResults = HyperparameterSweep.Run(
+                    fitSet, valSet,
+                    learningRates: new[] { 0.01, 0.05, 0.15, 0.3 },
+                    hiddenSizes: new[] { 8, 16, 24, 48 },
+                    checkpoints: new[] { 100, 300, 500, 1000 },
+                    seeds: new[] { 1, 2, 3 });
+
+                HyperparameterSweep.WriteCsv(sweepResults, "hyperparameter_results.csv");
+                HyperparameterSweep.PrintTop(sweepResults, 5);
+            }
+
+        // ---------- FINAL MODEL: tuned hyperparameters ----------
+        double tunedLearningRate = 0.01;
+        int tunedHiddenNodes = 24;
+        int tunedEpochs = 1000;
+
+        Console.WriteLine($"\n[5/5] Training final model (lr={tunedLearningRate}, hidden={tunedHiddenNodes}, epochs={tunedEpochs})...\n");
+
+        var tunedNetwork = new NeuralEngine(inputNodes, tunedHiddenNodes, outputNodes, tunedLearningRate, seed: 42);
+        var tunedTrainer = new Trainer(tunedNetwork);
+        tunedTrainer.Train(trainScaled, testScaled, tunedEpochs, logEvery: 100, logPath: "training_log_tuned.csv");
+
+        Evaluator.Print("TUNED TRAIN", Evaluator.Evaluate(tunedNetwork, trainScaled));
+        Evaluator.Print("TUNED TEST", Evaluator.Evaluate(tunedNetwork, testScaled));
         }
     }
 }
