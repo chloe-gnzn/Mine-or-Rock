@@ -130,5 +130,52 @@ namespace SonarMLP
 
             return outputs;
         }
+    
+    public double TrainSample(double[] inputs, double target)
+    {
+            //forward pass
+            double[] output = ComputeForward(inputs, out double[] hiddenActivations);
+            double yHat = output[0];
+
+            //E = 0.5 * (target - yHat)^2
+            double error = target - yHat;
+            double sampleLoss = 0.5 * Math.Pow(error, 2);
+
+            //delta_o = (target - yHat) * f'(yHat)
+            double deltaO = error * SigmoidDerivative(yHat);
+
+            //delta_h = (delta_o * W_ho) * f'(a_h)
+            double[] deltasH = new double[HiddenDim];
+            for (int h = 0; h < HiddenDim; h++)
+            {
+                deltasH[h] = (deltaO * WeightsHO[h, 0]) * SigmoidDerivative(hiddenActivations[h]);
+            }
+
+            //update hidden
+            for (int h = 0; h < HiddenDim; h++)
+            {
+                WeightsHO[h, 0] += LearningRate * deltaO * hiddenActivations[h];
+            }
+            BiasesO[0] += LearningRate * deltaO;
+
+            //update input
+            for (int h = 0; h < HiddenDim; h++)
+            {
+                for (int i = 0; i < InputDim; i++)
+                {
+                    WeightsIH[i, h] += LearningRate * deltasH[h] * inputs[i];
+                }
+                BiasesH[h] += LearningRate * deltasH[h];
+            }
+
+            return sampleLoss;
+        }
+        //inference method predicting binary class
+        public (int PredictedClass, double Confidence) Predict(double[] inputs)
+        {
+            double probability = ComputeForward(inputs, out _)[0];
+            int classification = probability >= 0.5 ? 1 : 0; //1 if mine, 0 if rock
+            return (classification, probability);
+        }
     }
 }
