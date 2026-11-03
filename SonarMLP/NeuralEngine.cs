@@ -2,20 +2,24 @@ using System;
 
 namespace SonarMLP
 {
+    //3-layer multi-layer perceptron (input, hidden, output) for binary classification
     public class NeuralEngine
     {
-        public int InputDim { get; }
-        public int HiddenDim { get; }
-        public int OutputDim { get; }
-        public double LearningRate { get; set; }
+        //network dimensions and hyperparameters
+        public int InputDim { get; }      //60 inputs for sonar frequencies
+        public int HiddenDim { get; }     //24 units for non-linear feature mapping
+        public int OutputDim { get; }     //1 output unit for binary probability
+        public double LearningRate { get; set; } //eta step size for weight updates
 
-        public double[,] WeightsIH { get; private set; } //inputdim, hiddendim
-        public double[] BiasesH { get; private set; }     //hiddendim
-        public double[,] WeightsHO { get; private set; } //hiddendim, outputdim
-        public double[] BiasesO { get; private set; }     //outputdim
+        //weight matrices and bias vectors
+        public double[,] WeightsIH { get; private set; } //inputdim to hiddendim weights
+        public double[] BiasesH { get; private set; }     //hiddendim biases
+        public double[,] WeightsHO { get; private set; } //hiddendim to outputdim weights
+        public double[] BiasesO { get; private set; }     //outputdim biases
 
         private readonly Random _rng;
 
+        //initialize dimensions, allocate arrays, and trigger weight initialization
         public NeuralEngine(int inputDim = 60, int hiddenDim = 24, int outputDim = 1, double lr = 0.15, int seed = 42)
         {
             InputDim = inputDim;
@@ -24,6 +28,7 @@ namespace SonarMLP
             LearningRate = lr;
             _rng = new Random(seed);
 
+            //allocate layer weight and bias arrays
             WeightsIH = new double[InputDim, HiddenDim];
             BiasesH = new double[HiddenDim];
             WeightsHO = new double[HiddenDim, OutputDim];
@@ -32,8 +37,10 @@ namespace SonarMLP
             InitializeWeights();
         }
 
+        //xavier uniform initialization to keep variance stable and prevent vanishing gradients
         private void InitializeWeights()
         {
+            //input to hidden layer weight initialization: uniform limit = sqrt(6 / (fan_in + fan_out))
             double limitIH = Math.Sqrt(6.0 / (InputDim + HiddenDim));
             for (int i = 0; i < InputDim; i++)
             {
@@ -43,6 +50,7 @@ namespace SonarMLP
                 }
             }
 
+            //hidden to output layer weight initialization and zero-bias setup
             double limitHO = Math.Sqrt(6.0 / (HiddenDim + OutputDim));
             for (int h = 0; h < HiddenDim; h++)
             {
@@ -53,12 +61,14 @@ namespace SonarMLP
                 }
             }
 
+            //output layer zero-bias setup
             for (int o = 0; o < OutputDim; o++)
             {
                 BiasesO[o] = 0.0;
             }
         }
 
+        //sigmoid activation with value clamping to prevent numerical overflow in math.exp
         private static double Sigmoid(double x)
         {
             if (x < -45.0) return 0.0;
@@ -66,17 +76,19 @@ namespace SonarMLP
             return 1.0 / (1.0 + Math.Exp(-x));
         }
 
+        //derivative of sigmoid: f'(output) = output * (1.0 - output)
         private static double SigmoidDerivative(double output)
         {
             return output * (1.0 - output);
         }
 
+        //forward pass through input, hidden, and output layers
         public double[] ComputeForward(double[] inputs, out double[] hiddenActivations)
         {
             hiddenActivations = new double[HiddenDim];
             double[] outputs = new double[OutputDim];
 
-            //input to hidden
+            //input to hidden forward step
             for (int h = 0; h < HiddenDim; h++)
             {
                 double sum = BiasesH[h];
@@ -87,7 +99,7 @@ namespace SonarMLP
                 hiddenActivations[h] = Sigmoid(sum);
             }
 
-            //hidden to output
+            //hidden to output forward step
             for (int o = 0; o < OutputDim; o++)
             {
                 double sum = BiasesO[o];
@@ -101,20 +113,21 @@ namespace SonarMLP
             return outputs;
         }
 
+        //executes forward pass, computes sample mse loss, and backpropagates weight updates
         public double TrainSample(double[] inputs, double target)
         {
             //forward pass
             double[] output = ComputeForward(inputs, out double[] hiddenActivations);
             double yHat = output[0];
 
-            //sample loss
+            //sample mse loss: 0.5 * (target - yHat)^2
             double error = target - yHat;
             double sampleLoss = 0.5 * Math.Pow(error, 2);
 
-            //output layer delta
+            //output layer delta: delta_o = (target - yHat) * f'(yHat)
             double deltaO = error * SigmoidDerivative(yHat);
 
-            //hidden layer datas
+            //hidden layer delta: delta_h = (delta_o * W_ho) * f'(hidden)
             double[] deltasH = new double[HiddenDim];
             for (int h = 0; h < HiddenDim; h++)
             {
@@ -141,10 +154,11 @@ namespace SonarMLP
             return sampleLoss;
         }
 
+        //binary classification thresholding at 0.5
         public (int PredictedClass, double Confidence) Predict(double[] inputs)
         {
             double probability = ComputeForward(inputs, out _)[0];
-            int classification = probability >= 0.5 ? 1 : 0; //1 for mine, 0 for rocks
+            int classification = probability >= 0.5 ? 1 : 0; //1 for mine, 0 for rock
             return (classification, probability);
         }
     }
