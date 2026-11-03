@@ -74,6 +74,9 @@ namespace SonarMLP
 
             Console.WriteLine($"\nFinal Train Accuracy: {trainer.ComputeAccuracy(trainScaled):P2}");
             Console.WriteLine($"Final Test Accuracy:  {trainer.ComputeAccuracy(testScaled):P2}");
+
+            Evaluator.Print("TRAIN", Evaluator.Evaluate(network, trainScaled));
+            Evaluator.Print("TEST", Evaluator.Evaluate(network, testScaled));
         }
     }
 }
