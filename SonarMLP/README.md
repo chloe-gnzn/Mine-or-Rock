@@ -15,15 +15,15 @@ Output files: `training_log.csv` (baseline), `training_log_tuned.csv` (tuned),
 `hyperparameter_results.csv` (sweep).
 
 ## Architecture & Mathematical Foundations
-- **Topology:** 60 Input Nodes $\rightarrow$ 24 Hidden Nodes $\rightarrow$ 1 Output Node (Sigmoid).
-- **Weight Initialization:** Xavier (Glorot) uniform initialization with bounds $\pm\sqrt{6 / (\text{fan\_in} + \text{fan\_out})}$. Biases initialized to 0.0.
+- **Topology:** 60 Input Nodes → 24 Hidden Nodes → 1 Output Node (Sigmoid).
+- **Weight Initialization:** Xavier (Glorot) uniform initialization with bounds ±√(6 / (fan_in + fan_out)). Biases initialized to 0.0.
 - **Activation Function:** Clamped Sigmoid $\sigma(z) = \frac{1}{1 + e^{-z}}$ bounded at $[-45, 45]$ to prevent exponential floating-point overflow.
   - Derivative: $\sigma'(a) = a(1.0 - a)$
 - **Loss Function:** Sample Mean Squared Error (MSE): $E = \frac{1}{2}(y - \hat{y})^2$.
 - **Optimization:** Online Backpropagation (Stochastic Gradient Descent) with analytical gradients:
-  - Output Delta: $\delta_o = (y - \hat{y}) \cdot \sigma'(\hat{y}) = (y - \hat{y}) \cdot \hat{y}(1.0 - \hat{y})$
-  - Hidden Delta: $\delta_h = (\delta_o \cdot W_{ho}) \cdot \sigma'(a_h) = (\delta_o \cdot W_{ho}) \cdot a_h(1.0 - a_h)$
-  - Weight Updates: $\Delta W = \eta \cdot \delta \cdot \text{activation}$
+- Output Delta: $\delta_o = (y - \hat{y}) \cdot \sigma'(\hat{y}) = (y - \hat{y}) \cdot \hat{y}(1.0 - \hat{y})$
+- Hidden Delta: $\delta_h = (\delta_o \cdot W_{ho}) \cdot \sigma'(a_h) = (\delta_o \cdot W_{ho}) \cdot a_h(1.0 - a_h)$
+- Weight Updates: $\Delta W = \eta \cdot \delta \cdot \text{activation}$
   
 ## Data Description
 - **Source:** UCI Machine Learning Repository, "Connectionist Bench (Sonar, Mines vs. Rocks)".
