@@ -1,3 +1,4 @@
+/Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/bin/Debug/net10.0/Data/sonar.csv
 /Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/bin/Debug/net10.0/SonarMLP
 /Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/bin/Debug/net10.0/SonarMLP.deps.json
 /Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/bin/Debug/net10.0/SonarMLP.runtimeconfig.json
@@ -13,19 +14,3 @@
 /Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/obj/Debug/net10.0/SonarMLP.pdb
 /Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/obj/Debug/net10.0/SonarMLP.genruntimeconfig.cache
 /Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/obj/Debug/net10.0/ref/SonarMLP.dll
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\bin\Debug\net10.0\Data\sonar.csv
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\bin\Debug\net10.0\SonarMLP.exe
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\bin\Debug\net10.0\SonarMLP.deps.json
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\bin\Debug\net10.0\SonarMLP.runtimeconfig.json
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\bin\Debug\net10.0\SonarMLP.dll
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\bin\Debug\net10.0\SonarMLP.pdb
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\obj\Debug\net10.0\SonarMLP.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\obj\Debug\net10.0\SonarMLP.AssemblyInfoInputs.cache
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\obj\Debug\net10.0\SonarMLP.AssemblyInfo.cs
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\obj\Debug\net10.0\SonarMLP.csproj.CoreCompileInputs.cache
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\obj\Debug\net10.0\SonarMLP.sourcelink.json
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\obj\Debug\net10.0\SonarMLP.dll
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\obj\Debug\net10.0\refint\SonarMLP.dll
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\obj\Debug\net10.0\SonarMLP.pdb
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\obj\Debug\net10.0\SonarMLP.genruntimeconfig.cache
-C:\Users\Iren Guinita\Documents\GitHub\Mine-or-Rock\SonarMLP\obj\Debug\net10.0\ref\SonarMLP.dll

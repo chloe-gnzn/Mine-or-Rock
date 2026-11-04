@@ -4,15 +4,27 @@ A 3-layer multi-layer perceptron (input, hidden, output) with backpropagation, w
 applied to binary classification of sonar returns (metal mine vs. rock).
 
 ## How to Run
-1. Open the solution in Visual Studio and make sure `Data/sonar.csv` is set to
-   "Copy to Output Directory: Copy always".
-2. Run `dotnet run`. The program loads the data, trains the baseline network, trains the tuned network,
+1. Clone or open the repository folder in Visual Studio Code or Visual Studio.
+2. Make sure `Data/sonar.csv` is set to "Copy to Output Directory: Copy always".
+3. Ensure the .NET 10 SDK is installed (`dotnet --version`).
+4. Run `dotnet run`. The program loads the data, trains the baseline network, trains the tuned network,
    and prints the confusion matrix and metrics for each.
-3. Set `runSweep = true` in `Program.cs` to regenerate the hyperparameter sweep.
+5. Set `runSweep = true` in `Program.cs` to regenerate the hyperparameter sweep.
 
 Output files: `training_log.csv` (baseline), `training_log_tuned.csv` (tuned),
 `hyperparameter_results.csv` (sweep).
 
+## Architecture & Mathematical Foundations
+- **Topology:** 60 Input Nodes $\rightarrow$ 24 Hidden Nodes $\rightarrow$ 1 Output Node (Sigmoid).
+- **Weight Initialization:** Xavier (Glorot) uniform initialization with bounds $\pm\sqrt{6 / (\text{fan\_in} + \text{fan\_out})}$. Biases initialized to 0.0.
+- **Activation Function:** Clamped Sigmoid $\sigma(z) = \frac{1}{1 + e^{-z}}$ bounded at $[-45, 45]$ to prevent exponential floating-point overflow.
+  - Derivative: $\sigma'(a) = a(1.0 - a)$
+- **Loss Function:** Sample Mean Squared Error (MSE): $E = \frac{1}{2}(y - \hat{y})^2$.
+- **Optimization:** Online Backpropagation (Stochastic Gradient Descent) with analytical gradients:
+  - Output Delta: $\delta_o = (y - \hat{y}) \cdot \sigma'(\hat{y}) = (y - \hat{y}) \cdot \hat{y}(1.0 - \hat{y})$
+  - Hidden Delta: $\delta_h = (\delta_o \cdot W_{ho}) \cdot \sigma'(a_h) = (\delta_o \cdot W_{ho}) \cdot a_h(1.0 - a_h)$
+  - Weight Updates: $\Delta W = \eta \cdot \delta \cdot \text{activation}$
+  
 ## Data Description
 - **Source:** UCI Machine Learning Repository, "Connectionist Bench (Sonar, Mines vs. Rocks)".
 - **Size:** 208 samples, 60 numeric features, 1 label.
@@ -62,7 +74,7 @@ Test confusion matrix (identical for both models):
 | Actual Rock | 14 | 5 |
 | Actual Mine | 2 | 20 |
 
-Final test loss at epoch 1000: baseline 0.0814, tuned [fill in from training_log_tuned.csv].
+Final test loss at epoch 1000: baseline 0.0814, tuned 0.0712.
 
 ## Analysis
 - **Backpropagation works.** Training loss decreases steadily in both logs, and accuracy starts near chance (about 46%)
