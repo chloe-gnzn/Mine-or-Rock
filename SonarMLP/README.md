@@ -3,6 +3,12 @@
 A 3-layer multi-layer perceptron (input, hidden, output) with backpropagation, written from scratch in C#,
 applied to binary classification of sonar returns (metal mine vs. rock).
 
+## Authors & Contributors
+| Name | Role | Primary Contributions |
+|---|---|---|
+| **Chloe Julia Geonzon** | Custom Neural Engine (`NeuralEngine.cs`), Xavier initialization, backpropagation mathematics, loss & activation derivations. |
+| **Iren Nathaleigh Guinita** | Data pipeline (`DataLoader.cs`, `Preprocessing.cs`), evaluation suite (`Evaluator.cs`), and hyperparameter grid sweep (`Trainer.cs`, `HyperparameterSweep.cs`). |
+
 ## How to Run
 1. Clone or open the repository folder in Visual Studio Code or Visual Studio.
 2. Make sure `Data/sonar.csv` is set to "Copy to Output Directory: Copy always".
