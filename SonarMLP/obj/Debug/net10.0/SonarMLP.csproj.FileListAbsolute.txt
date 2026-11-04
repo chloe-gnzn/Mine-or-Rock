@@ -1,3 +1,4 @@
+/Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/bin/Debug/net10.0/Data/sonar.csv
 /Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/bin/Debug/net10.0/SonarMLP
 /Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/bin/Debug/net10.0/SonarMLP.deps.json
 /Users/chloejuliageonzon/Documents/Mine or Rock/SonarMLP/bin/Debug/net10.0/SonarMLP.runtimeconfig.json
